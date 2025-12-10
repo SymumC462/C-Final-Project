@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 
+//gives names to the number values representing the 4 cardinal directions
 enum Direction {NORTH = 0, SOUTH = 1, EAST = 2, WEST = 3};
 
 //struct allows for different datatypes; basically an array that can sort ints, strings, bools, etc, in the same list

@@ -25,7 +25,7 @@ class Game{
             string status = "";
              while(!isdone){
                 ptrCurrentRoom->OutputRoomInfo();
-
+                //possible ascii art of the map youre in for better reference?
                 status = HandleUserInput();
 
                 cout << status << endl;
@@ -36,43 +36,65 @@ class Game{
     private:
         // pushes the rooms into the roomsVctr vector
         int CreateRoom(string name, string description){
+            int index = roomsVctr.size();
             Rooms* rooms = new Rooms();
 
             rooms->Setup(name, description);
             roomsVctr.push_back(rooms);
 
-            return roomsVctr.size() -1;
+            return index;
         }
 
         // sets up the rooms starting with the first room and its neighboring rooms  
         void SetupRooms(){
-            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance.");
-            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest.");
-            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon.");
+            cout << "Creation Process." << endl;
 
-        /*  rooms[1].Setup("Room1", "description text here");
-            rooms[2].Setup("Room2", "description text here");
-            rooms[3].Setup("Room3", "description text here");
-            rooms[4].Setup("Room4", "description text here");
-            rooms[5].Setup("Room5", "description text here");
-            rooms[6].Setup("Room6", "description text here");
-            rooms[7].Setup("Room7", "description text here");
-            rooms[8].Setup("Room8", "description text here");
-            rooms[9].Setup("Room9", "description text here");
-            rooms[10].Setup("Room10", "description text here");
-            rooms[11].Setup("Room11", "description text here");
-            rooms[12].Setup("Room12", "description text here");
-            rooms[13].Setup("Room13", "description text here");
-            rooms[14].Setup("Room14", "description text here");
-            rooms[15].Setup("Room15", "description text here");
-            rooms[16].Setup("Room16", "description text here");
-            rooms[17].Setup("Room17", "description text here");
-            //the rooms connected to each room(where can u go after this room)
-            rooms[0].SetNeighbors(nullptr,nullptr,nullptr, rooms[1]); */
+            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance."); //room0
+            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest."); //room1
+            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon."); //room17
+            int room2 =CreateRoom("Room2", "2nd room of this dungeon");
+            int room3 =CreateRoom("Room3", "Third room of this dungeon");
+            int room4 =CreateRoom("Room4", "4th room of this dungeon");
+            int room5 =CreateRoom("Room5", "5th room of this dungeon");
+            int room6 =CreateRoom("Room6", "6th room of this dungeon");
+            int room7 =CreateRoom("Room7", "7th room of this dungeon");
+            int room8 =CreateRoom("Room8", "8th room of this dungeon");
+            int room9 =CreateRoom("Room9", "9th room of this dungeon");
+            int room10 =CreateRoom("Room10", "10th room of this dungeon");
+            int room11 =CreateRoom("Room11", "11th room of this dungeon");
+            int room12 =CreateRoom("Room12", "12th room of this dungeon");
+            int room13 =CreateRoom("Room13", "13th room of this dungeon");
+            int room14 =CreateRoom("Room14", "14th room of this dungeon");
+            int room15 =CreateRoom("Room15", "15th room of this dungeon");
+            int room16 =CreateRoom("Room16", "16th room of this dungeon");
 
-            roomsVctr[startingRoom]->SetNeighbors(nullptr, nullptr, roomsVctr[dungeonExit], roomsVctr[OutsideEntrance]);
+            
+            cout << "Setup Process." << endl;
+            // the parameters go by whats              NORTH,   SOUTH,    EAST,     WEST
+            roomsVctr[startingRoom]   ->SetNeighbors(nullptr, nullptr, roomsVctr[OutsideEntrance], roomsVctr[room2]);
+            roomsVctr[OutsideEntrance]->SetNeighbors(nullptr, nullptr, nullptr, roomsVctr[startingRoom]);
+            roomsVctr[room2]          ->SetNeighbors(nullptr, roomsVctr[room4], roomsVctr[startingRoom], roomsVctr[room3]);
+            roomsVctr[room3]          ->SetNeighbors(nullptr, roomsVctr[room5], roomsVctr[room2], nullptr);
+            roomsVctr[room4]          ->SetNeighbors(roomsVctr[room2], nullptr, nullptr, roomsVctr[room5]);
+            roomsVctr[room5]          ->SetNeighbors(roomsVctr[room3], roomsVctr[room6], roomsVctr[room4], nullptr);
+            roomsVctr[room6]          ->SetNeighbors(roomsVctr[room5], nullptr, roomsVctr[room7], nullptr);
+            roomsVctr[room7]          ->SetNeighbors(nullptr, nullptr, roomsVctr[room8], roomsVctr[room6]);
+            roomsVctr[room8]          ->SetNeighbors(roomsVctr[room9], nullptr, roomsVctr[room11], roomsVctr[room7]);
+            roomsVctr[room9]          ->SetNeighbors(nullptr, roomsVctr[room8], nullptr, nullptr);
+            roomsVctr[room10]          ->SetNeighbors(nullptr, roomsVctr[room11], nullptr, nullptr);
+            roomsVctr[room11]          ->SetNeighbors(roomsVctr[room10], roomsVctr[room12], nullptr, roomsVctr[room8]);
+            roomsVctr[room12]          ->SetNeighbors(roomsVctr[room11], nullptr, nullptr, roomsVctr[room13]);
+            roomsVctr[room13]          ->SetNeighbors(nullptr, nullptr, roomsVctr[room12], roomsVctr[room14]);
+            roomsVctr[room14]          ->SetNeighbors(nullptr, roomsVctr[room16], roomsVctr[room13], roomsVctr[room15]);
+            roomsVctr[room15]          ->SetNeighbors(nullptr, nullptr, roomsVctr[room14], nullptr);
+            roomsVctr[room16]          ->SetNeighbors(roomsVctr[room14], nullptr, roomsVctr[dungeonExit], nullptr);
+
+
+            roomsVctr[dungeonExit]->SetNeighbors(nullptr, nullptr, nullptr, roomsVctr[room16]);
+
 
             ptrCurrentRoom = roomsVctr[startingRoom]; 
+           // Pause();
         }
 
         //function to convert strings to lowercase
@@ -87,11 +109,13 @@ class Game{
         string HandleUserInput(){
             string status = "";
             string userInput ;
+
+            
             cout <<"What will you do? " << endl;
             getline(cin, userInput);
 
             string lowerInput = ToLowerString(userInput);
-            if(lowerInput ==  "north"){
+            if(lowerInput ==  "north" || lowerInput ==  "n"){
                 //changes current room to room in that direction, or tells the player they cant go in that direction
                 if(ptrCurrentRoom->CanGo(NORTH)){
                     status = "You went NORTH."; 
@@ -102,7 +126,7 @@ class Game{
                 }
                      
             }
-            else if(lowerInput ==  "south"){
+            else if(lowerInput ==  "south" || lowerInput ==  "s"){
                 //changes current room to room in that direction, or tells the player they cant go in that direction
                 if(ptrCurrentRoom->CanGo(SOUTH)){
                     status = "You went SOUTH."; 
@@ -113,7 +137,7 @@ class Game{
                 }
                      
             }
-            else if(lowerInput ==  "east"){
+            else if(lowerInput ==  "east" || lowerInput ==  "e"){
                 //changes current room to room in that direction, or tells the player they cant go in that direction
                 if(ptrCurrentRoom->CanGo(EAST)){
                     status = "You went EAST."; 
@@ -124,7 +148,7 @@ class Game{
                 }
                      
             }
-            else if(lowerInput ==  "west"){
+            else if(lowerInput ==  "west" || lowerInput ==  "w"){
                 //changes current room to room in that direction, or tells the player they cant go in that direction
                 if(ptrCurrentRoom->CanGo(WEST)){
                     status = "You went WEST."; 
@@ -134,15 +158,20 @@ class Game{
                     status = "You cant go WEST here."; 
                 }
                      
-            }            
+            } 
+            else{
+                status = "Unknown Command";
+            }           
             return status;
         }
 
         //gives a pause after each action the player does
         void Pause(){
-            system("pause");
             cout << endl << "Press Enter to continue..." << endl;
+
             cin.ignore( numeric_limits<streamsize>::max(), '\n');
+
+            cin.get();
         }
 
         Rooms* ptrCurrentRoom;
