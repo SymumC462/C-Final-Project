@@ -1,6 +1,7 @@
 #ifndef ITEMS_HPP
 #define ITEMS_HPP
 
+#include <vector>
 #include <string>
 using namespace std;
 
@@ -9,7 +10,7 @@ class Items{
     public: 
         Items(string itemName);
         void GiveItemName(string itemName);
-        void AddItemtoInventory();
+        void AddItemtoInventory(vector<string> inventory);
         
     private:
         string GetItemName();
@@ -24,8 +25,8 @@ void Items::GiveItemName(string itemName){
     this->itemName = itemName;
 }
 
-void Items::AddItemtoInventory(){
-
+void Items::AddItemtoInventory(vector<string> inventory){
+    inventory.push_back(this->itemName);
 }
 
 
