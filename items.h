@@ -9,8 +9,10 @@ class Items{
     public: 
         void GiveItemName();
         void AddItemtoInventory();
-        void GetItemLocation();
+        
     private:
+        void GetItemname();
+        void GetItemLocation();
         string itemName;
 };
 
