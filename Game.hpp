@@ -18,11 +18,11 @@ class Game{
         }
         //function that runs the game
         void RunGame(){
-            string input;
+            string userInput;
              while(!isdone){
                 ptrCurrentRoom->OutputRoomInfo();
                 cout <<"What will you do? " << endl;
-                
+                getline(cin, userInput);
             }
         }
         
