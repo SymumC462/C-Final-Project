@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "Rooms.hpp"
+#include "items.hpp"
 
 #include <string>
 #include <vector>
