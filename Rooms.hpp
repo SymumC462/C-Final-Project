@@ -4,6 +4,9 @@
 #include <iostream> 
 #include <string>
 using namespace std;
+
+enum Direction {NORTH = 0, SOUTH = 1, EAST = 2, WEST = 3};
+
 //struct allows for different datatypes; basically an array that can sort ints, strings, bools, etc, in the same list
 struct Rooms{   
      //variables for rooms
@@ -48,10 +51,26 @@ struct Rooms{
     //outputs the current rooms neighbors
     void OutputNeigbors(){
         cout << "Head to..." << endl;
-        if(ptrNeighborNorth != nullptr){cout << "(N)orth " << endl;}
-        if(ptrNeighborSouth != nullptr){cout << "(S)outh " << endl;}
-        if(ptrNeighborEast != nullptr){cout << "(E)ast " << endl;}
-        if(ptrNeighborWest != nullptr){cout << "(W)est " << endl;}
+        if(ptrNeighborNorth != nullptr){cout << "North " << endl;}
+        if(ptrNeighborSouth != nullptr){cout << "South " << endl;}
+        if(ptrNeighborEast != nullptr){cout << "East " << endl;}
+        if(ptrNeighborWest != nullptr){cout << "West " << endl;}
+    }
+    //sees which directions you can go from your current room
+    bool CanGo(Direction direction){
+        if(direction == NORTH && ptrNeighborNorth != nullptr){
+            return true;
+        }
+        if(direction == SOUTH && ptrNeighborSouth != nullptr){
+            return true;
+        }
+        if(direction == EAST && ptrNeighborEast != nullptr){
+            return true;
+        }
+        if(direction == WEST && ptrNeighborWest != nullptr){
+            return true;
+        }
+        return false;
     }
 
 };  
