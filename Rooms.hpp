@@ -48,10 +48,10 @@ struct Rooms{
     //outputs the current rooms neighbors
     void OutputNeigbors(){
         cout << "Head to..." << endl;
-        if(ptrNeighborNorth != nullptr){cout << "North " << endl;}
-        if(ptrNeighborSouth != nullptr){cout << "South " << endl;}
-        if(ptrNeighborEast != nullptr){cout << "East " << endl;}
-        if(ptrNeighborWest != nullptr){cout << "West " << endl;}
+        if(ptrNeighborNorth != nullptr){cout << "(N)orth " << endl;}
+        if(ptrNeighborSouth != nullptr){cout << "(S)outh " << endl;}
+        if(ptrNeighborEast != nullptr){cout << "(E)ast " << endl;}
+        if(ptrNeighborWest != nullptr){cout << "(W)est " << endl;}
     }
 
 };  
