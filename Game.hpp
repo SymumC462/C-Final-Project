@@ -15,6 +15,7 @@ class Game{
     public:
         //default constructor for game class
         Game(){
+            
             Rooms* ptrCurrentRoom = nullptr;
             SetupRooms();
             isdone = false;   
@@ -29,8 +30,20 @@ class Game{
                 status = HandleUserInput();
 
                 cout << status << endl;
+                //calls the end condition function
+                EndCondition();
+                
+                //pauses the game IF the game is still running
+                if(!isdone){
+                   Pause(); 
+                }
+                
+            }
+            //final pause so the game doesnt stop upruptly
+            if(isdone){
                 Pause();
             }
+
         }
         
     private:
@@ -49,9 +62,9 @@ class Game{
         void SetupRooms(){
             cout << "Creation Process." << endl;
 
-            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance."); //room0
-            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest."); //room1
-            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon."); //room17
+            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance."); //room0 //index 0
+            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest."); //room1 //index 1
+            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon."); //room17 //index 2
             int room2 =CreateRoom("Room2", "2nd room of this dungeon");
             int room3 =CreateRoom("Room3", "Third room of this dungeon");
             int room4 =CreateRoom("Room4", "4th room of this dungeon");
@@ -94,6 +107,7 @@ class Game{
 
 
             ptrCurrentRoom = roomsVctr[startingRoom]; 
+            ptrDungeonExit = roomsVctr[dungeonExit];
            // Pause();
         }
 
@@ -164,7 +178,7 @@ class Game{
             }           
             return status;
         }
-
+        
         //gives a pause after each action the player does
         void Pause(){
             cout << endl << "Press Enter to continue..." << endl;
@@ -174,6 +188,15 @@ class Game{
             cin.get();
         }
 
+        //currently, checks if the player has entered the last room, and stops the program
+        void EndCondition(){
+            if(ptrCurrentRoom == ptrDungeonExit ){
+                isdone = true;
+                cout << "This is the exit of the Dungeon. You made it out!" << endl;
+            }
+        }
+        
+        Rooms* ptrDungeonExit;
         Rooms* ptrCurrentRoom;
         //vector that stores the rooms
         vector<Rooms*> roomsVctr;
