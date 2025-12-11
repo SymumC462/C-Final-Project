@@ -188,7 +188,7 @@ class Game{
         
         //gives a pause after each action the player does
         void Pause(){
-            cout << endl << "Press Enter to continue..." << endl;
+            cout << endl << "Press Enter TWICE to continue..." << endl;
 
             cin.ignore( numeric_limits<streamsize>::max(), '\n');
 
