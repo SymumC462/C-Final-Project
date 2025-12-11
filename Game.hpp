@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <limits>
+#include <sstream>
 
 using namespace std;
 
@@ -29,6 +30,8 @@ class Game{
     string HandleUserInput(); 
     // outputs the inventory as a vector of strings and ints, representing the item and its amount
     void OutputUserInventory();
+    //skips 50 lines to make stuff more readable
+    void ClearConsole();
     //gives a pause after each action the player does
     void Pause();
     //currently, checks if the player has entered the last room, and stops the program
@@ -57,7 +60,7 @@ void Game::RunGame(){
     string status = "";
     while(!isdone){
         ptrCurrentRoom->OutputRoomInfo();
-        ptrCurrentRoom->AddItemtoInventory(inventory, itemCounts);
+        
         OutputUserInventory();
         //possible ascii art of the map youre in for better reference?
         status = HandleUserInput();
@@ -69,7 +72,8 @@ void Game::RunGame(){
             
         //pauses the game IF the game is still running
         if(!isdone){
-            Pause(); 
+            Pause();
+            ClearConsole(); 
         }
             
     }
@@ -145,7 +149,7 @@ void Game::SetupRooms(){
 
     ptrCurrentRoom = roomsVctr[startingRoom]; 
     ptrDungeonExit = roomsVctr[dungeonExit];
-    // Pause();
+    Pause();
 }
 
 string Game::ToLowerString(string str){
@@ -160,57 +164,82 @@ string Game::HandleUserInput(){
     string userInput ;
 
         
-    cout <<"What will you do? " << endl;
+    cout <<"What will you do?  " << endl;
+    cout <<"-----EITHER [go] or [get] with direction or item-----" << endl;
+   
     getline(cin, userInput);
+    //stringstream splits the input by words
+    stringstream ss(userInput);
+    string command;
+    string dORo;
+    //takes the first word as a command
+    ss >> command;
+    string lower_command = ToLowerString(command);
+    //takes the second word as direction/object
+    ss >> dORo;
+    string lower_dORo = ToLowerString(dORo); 
 
-    string lowerInput = ToLowerString(userInput);
-    if(lowerInput ==  "north" || lowerInput ==  "n"){
-        //changes current room to room in that direction, or tells the player they cant go in that direction
-        if(ptrCurrentRoom->CanGo(NORTH)){
-            status = "You went NORTH."; 
-            ptrCurrentRoom = ptrCurrentRoom->ptrNeighborNorth;                    
+    //checks the first word to see what command u choose, then checks second word to see where you want to go/ what you want to grab
+    if(lower_command == "go"){
+        if(lower_dORo ==  "north" || lower_dORo ==  "n"){
+            //changes current room to room in that direction, or tells the player they cant go in that direction
+            if(ptrCurrentRoom->CanGo(NORTH)){
+                status = "You went NORTH."; 
+                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborNorth;                    
+            }
+            else{
+                status = "You cant go NORTH here."; 
+            }
+                        
         }
+        else if(lower_dORo ==  "south" || lower_dORo ==  "s"){
+            //changes current room to room in that direction, or tells the player they cant go in that direction
+            if(ptrCurrentRoom->CanGo(SOUTH)){
+                status = "You went SOUTH."; 
+                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborSouth;                    
+            }
+            else{
+                status = "You cant go SOUTH here."; 
+            }
+                        
+        }
+        else if(lower_dORo ==  "east" || lower_dORo ==  "e"){
+            //changes current room to room in that direction, or tells the player they cant go in that direction
+            if(ptrCurrentRoom->CanGo(EAST)){
+                status = "You went EAST."; 
+                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborEast;                    
+            }
+            else{
+                status = "You cant go EAST here."; 
+            }
+                        
+        }
+        else if(lower_dORo ==  "west" || lower_dORo ==  "w"){
+            //changes current room to room in that direction, or tells the player they cant go in that direction
+            if(ptrCurrentRoom->CanGo(WEST)){
+                status = "You went WEST."; 
+                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborWest;                    
+            }
+            else{
+                status = "You cant go WEST here."; 
+            }
+                        
+        } 
         else{
-            status = "You cant go NORTH here."; 
+            status = "Unknown Command";
+        }             
+    }//if first word is get, and second word is the rooms item name, say u grabbed it
+    else if(lower_command == "get"){
+        if(lower_dORo == ptrCurrentRoom->roomItem->GetItemName()){
+           cout << "You grabbed " << ptrCurrentRoom->roomItem->GetItemName() << endl;
+           ptrCurrentRoom->AddItemtoInventory(inventory, itemCounts);
+           //ptrCurrentRoom->
         }
-                    
     }
-    else if(lowerInput ==  "south" || lowerInput ==  "s"){
-        //changes current room to room in that direction, or tells the player they cant go in that direction
-        if(ptrCurrentRoom->CanGo(SOUTH)){
-            status = "You went SOUTH."; 
-            ptrCurrentRoom = ptrCurrentRoom->ptrNeighborSouth;                    
-        }
-        else{
-            status = "You cant go SOUTH here."; 
-        }
-                    
-    }
-    else if(lowerInput ==  "east" || lowerInput ==  "e"){
-        //changes current room to room in that direction, or tells the player they cant go in that direction
-        if(ptrCurrentRoom->CanGo(EAST)){
-            status = "You went EAST."; 
-            ptrCurrentRoom = ptrCurrentRoom->ptrNeighborEast;                    
-        }
-        else{
-            status = "You cant go EAST here."; 
-        }
-                    
-    }
-    else if(lowerInput ==  "west" || lowerInput ==  "w"){
-        //changes current room to room in that direction, or tells the player they cant go in that direction
-        if(ptrCurrentRoom->CanGo(WEST)){
-            status = "You went WEST."; 
-            ptrCurrentRoom = ptrCurrentRoom->ptrNeighborWest;                    
-        }
-        else{
-            status = "You cant go WEST here."; 
-        }
-                    
-    } 
     else{
         status = "Unknown Command";
-    }           
+    }
+    
     return status;
 }
 
@@ -221,6 +250,13 @@ void Game::OutputUserInventory(){
         cout << itemCounts.at(i) << " " << inventory.at(i) << ", ";
     }
     cout << "}" << endl;
+}
+
+void Game::ClearConsole(){
+    for(int i = 0; i < 50; i++){
+        cout << "-----------------------" << endl;
+    }
+
 }
 
 void Game::Pause(){
