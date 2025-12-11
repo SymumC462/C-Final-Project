@@ -25,6 +25,7 @@ struct Rooms{
     void OutputNeigbors();
     //sees which directions you can go from your current room
     bool CanGo(Direction direction);
+    void AddItemtoInventory(vector<string>& inventory, vector<int>& itemCounts);
 
     //variables for the rooms
     string roomName;
@@ -53,7 +54,7 @@ void Rooms::SetNeighbors(Rooms* ptrNorth, Rooms* ptrSouth, Rooms* ptrEast, Rooms
     ptrNeighborWest = ptrWest;
 }
 
-//sets up the default names of the room and default ptrs to its neighbors
+//sets up the default names and item of the room and default ptrs to its neighbors
 void Rooms::Setup(string roomName, string roomDescription, Items* item){
     this->roomName = roomName;
     this->roomDescription = roomDescription;
@@ -92,4 +93,33 @@ bool Rooms::CanGo(Direction direction){
     }
     return false;
 }  
+
+void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCounts){
+    string itemToCheck = roomItem->GetItemName(); 
+    bool itemIsInInventory = false;
+    bool itemIsNothing = false;
+    if (itemToCheck == "nothing")
+    {
+        itemIsNothing = true;
+    }
+    // checks to see if the item we're adding is the same as an item currently in the inventory, and only does so when the item isn't nothing
+    if (!(itemIsNothing))
+    {
+        for (unsigned long int i = 0; i < inventory.size(); i++) // iterates through the current inventory to check for an item already existing
+        {
+            if (inventory.at(i) == itemToCheck)
+            {
+                itemCounts.at(i)++;
+                itemIsInInventory = true;
+            }
+        }
+        if (!(itemIsInInventory))
+        {
+            inventory.push_back(roomItem->GetItemName());
+            itemCounts.push_back(1);
+        }
+        cout << "You put " << roomItem->GetItemName() << " into your inventory." << endl;
+    }
+
+}
 #endif

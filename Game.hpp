@@ -27,6 +27,8 @@ class Game{
     string ToLowerString(string str);
     //Handles the user input, checks if the direction player wants to go is available, then changes the currentroom to that new room
     string HandleUserInput(); 
+    // outputs the inventory as a vector of strings and ints, representing the item and its amount
+    void OutputUserInventory();
     //gives a pause after each action the player does
     void Pause();
     //currently, checks if the player has entered the last room, and stops the program
@@ -36,6 +38,8 @@ class Game{
     Rooms* ptrCurrentRoom;
     //vector that stores the rooms info AND item the room has
     vector<Rooms*> roomsVctr;
+    vector<string> inventory; // parallel vectors that will store itemnames
+    vector<int> itemCounts;   // and each item's count
     bool isdone;
 };  
 
@@ -53,6 +57,8 @@ void Game::RunGame(){
     string status = "";
     while(!isdone){
         ptrCurrentRoom->OutputRoomInfo();
+        ptrCurrentRoom->AddItemtoInventory(inventory, itemCounts);
+        OutputUserInventory();
         //possible ascii art of the map youre in for better reference?
         status = HandleUserInput();
 
@@ -206,6 +212,15 @@ string Game::HandleUserInput(){
         status = "Unknown Command";
     }           
     return status;
+}
+
+void Game::OutputUserInventory(){
+    cout << "Inventory: {";
+    for (long unsigned int i = 0; i < inventory.size(); i++)
+    {
+        cout << itemCounts.at(i) << " " << inventory.at(i) << ", ";
+    }
+    cout << "}" << endl;
 }
 
 void Game::Pause(){
