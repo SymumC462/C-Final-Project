@@ -9,6 +9,7 @@
 #include <limits>
 #include <sstream>
 
+
 using namespace std;
 
 //the game system class
@@ -60,7 +61,7 @@ void Game::RunGame(){
     string status = "";
     while(!isdone){
         ptrCurrentRoom->OutputRoomInfo();
-        
+
         OutputUserInventory();
         //possible ascii art of the map youre in for better reference?
         status = HandleUserInput();
