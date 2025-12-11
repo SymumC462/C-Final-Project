@@ -98,6 +98,7 @@ void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCount
     string itemToCheck = roomItem->GetItemName(); 
     bool itemIsInInventory = false;
     bool itemIsNothing = false;
+    Items* nowNothing = new Items("nothing");
     if (itemToCheck == "nothing")
     {
         itemIsNothing = true;
@@ -119,6 +120,7 @@ void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCount
             itemCounts.push_back(1);
         }
         cout << "You put " << roomItem->GetItemName() << " into your inventory." << endl;
+        roomItem = nowNothing;
     }
 
 }
