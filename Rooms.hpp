@@ -3,6 +3,7 @@
 
 #include <iostream> 
 #include <string>
+#include "items.hpp"
 using namespace std;
 
 //gives names to the number values representing the 4 cardinal directions
@@ -18,15 +19,17 @@ struct Rooms{
     Rooms* ptrNeighborSouth;
     Rooms* ptrNeighborEast;
     Rooms* ptrNeighborWest;
+    //item that the room has
+    Items* roomItem;
 
 
     //default constructor that calls Setup()
     Rooms(){
-        Setup(roomName, roomDescription);
+        Setup(roomName, roomDescription, roomItem);
     }
     //calls the setup function to give it a name and description
-    Rooms(string roomName, string roomDescription){
-        Setup(roomName, roomDescription);
+    Rooms(string roomName, string roomDescription, Items* item){
+        Setup(roomName, roomDescription, item);
     }
     //sets up what the neighbors of the current room will be
     void SetNeighbors(Rooms* ptrNorth, Rooms* ptrSouth, Rooms* ptrEast, Rooms* ptrWest){
@@ -37,16 +40,18 @@ struct Rooms{
     }
 
     //sets up the default names of the room and default ptrs to its neighbors
-    void Setup(string roomName, string roomDescription){
+    void Setup(string roomName, string roomDescription, Items* item){
         this->roomName = roomName;
         this->roomDescription = roomDescription;
         ptrNeighborNorth = nullptr;
         ptrNeighborSouth = nullptr;
         ptrNeighborEast = nullptr;
         ptrNeighborWest = nullptr;
+        roomItem = item;
     }
     void OutputRoomInfo(){
         cout << roomName << endl << roomDescription << endl;
+        roomItem->DescribeItem();
         OutputNeigbors();
     }
     //outputs the current rooms neighbors

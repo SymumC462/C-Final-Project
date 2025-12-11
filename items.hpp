@@ -11,6 +11,7 @@ class Items{
         Items(string itemName);
         void GiveItemName(string itemName);
         void AddItemtoInventory(vector<string> inventory);
+        void DescribeItem();
         
     private:
         string GetItemName();
@@ -29,6 +30,9 @@ void Items::AddItemtoInventory(vector<string> inventory){
     inventory.push_back(this->itemName);
 }
 
+void Items::DescribeItem() {
+    cout << "There is " << itemName << " in here." << endl;
+}
 
 string Items::GetItemName(){
     return itemName;

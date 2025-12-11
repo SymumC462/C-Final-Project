@@ -30,6 +30,7 @@ class Game{
                 status = HandleUserInput();
 
                 cout << status << endl;
+                
                 //calls the end condition function
                 EndCondition();
                 
@@ -48,11 +49,11 @@ class Game{
         
     private:
         // pushes the rooms into the roomsVctr vector
-        int CreateRoom(string name, string description){
+        int CreateRoom(string name, string description, Items* item){
             int index = roomsVctr.size();
             Rooms* rooms = new Rooms();
 
-            rooms->Setup(name, description);
+            rooms->Setup(name, description, item);
             roomsVctr.push_back(rooms);
 
             return index;
@@ -62,24 +63,30 @@ class Game{
         void SetupRooms(){
             cout << "Creation Process." << endl;
 
-            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance."); //room0 //index 0
-            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest."); //room1 //index 1
-            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon."); //room17 //index 2
-            int room2 =CreateRoom("Room2", "2nd room of this dungeon");
-            int room3 =CreateRoom("Room3", "Third room of this dungeon");
-            int room4 =CreateRoom("Room4", "4th room of this dungeon");
-            int room5 =CreateRoom("Room5", "5th room of this dungeon");
-            int room6 =CreateRoom("Room6", "6th room of this dungeon");
-            int room7 =CreateRoom("Room7", "7th room of this dungeon");
-            int room8 =CreateRoom("Room8", "8th room of this dungeon");
-            int room9 =CreateRoom("Room9", "9th room of this dungeon");
-            int room10 =CreateRoom("Room10", "10th room of this dungeon");
-            int room11 =CreateRoom("Room11", "11th room of this dungeon");
-            int room12 =CreateRoom("Room12", "12th room of this dungeon");
-            int room13 =CreateRoom("Room13", "13th room of this dungeon");
-            int room14 =CreateRoom("Room14", "14th room of this dungeon");
-            int room15 =CreateRoom("Room15", "15th room of this dungeon");
-            int room16 =CreateRoom("Room16", "16th room of this dungeon");
+            // all possible items in the dungeon
+            Items* nothing = new Items("nothing");
+            Items* gold = new Items("gold");
+            Items* ruby = new Items("ruby");
+            Items* sapphire = new Items("sapphire");
+
+            int startingRoom = CreateRoom("Dungeon Entrance", "You have reached the entrance.", nothing); //room0 //index 0
+            int OutsideEntrance = CreateRoom("Outside Entrance", "This is the outside near a forest.", nothing); //room1 //index 1
+            int dungeonExit = CreateRoom("Dungeon Exit", " You are at the last room of the dungeon.", nothing); //room17 //index 2
+            int room2 =CreateRoom("Room2", "2nd room of this dungeon", nothing);
+            int room3 =CreateRoom("Room3", "Third room of this dungeon", sapphire);
+            int room4 =CreateRoom("Room4", "4th room of this dungeon", ruby);
+            int room5 =CreateRoom("Room5", "5th room of this dungeon", gold);
+            int room6 =CreateRoom("Room6", "6th room of this dungeon", gold);
+            int room7 =CreateRoom("Room7", "7th room of this dungeon", ruby);
+            int room8 =CreateRoom("Room8", "8th room of this dungeon", nothing);
+            int room9 =CreateRoom("Room9", "9th room of this dungeon", gold);
+            int room10 =CreateRoom("Room10", "10th room of this dungeon", gold);
+            int room11 =CreateRoom("Room11", "11th room of this dungeon", sapphire);
+            int room12 =CreateRoom("Room12", "12th room of this dungeon", gold);
+            int room13 =CreateRoom("Room13", "13th room of this dungeon", gold);
+            int room14 =CreateRoom("Room14", "14th room of this dungeon", ruby);
+            int room15 =CreateRoom("Room15", "15th room of this dungeon", sapphire);
+            int room16 =CreateRoom("Room16", "16th room of this dungeon", nothing);
 
             
             cout << "Setup Process." << endl;
