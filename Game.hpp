@@ -69,8 +69,9 @@ void Game::RunGame(){
         
     string status = "";
     while(!isdone){
-        ptrCurrentRoom->OutputRoomInfo();
 
+        ptrCurrentRoom->OutputRoomInfo();
+        EndCondition();
         OutputUserInventory();
         //possible ascii art of the map youre in for better reference?
         status = HandleUserInput();
@@ -78,7 +79,7 @@ void Game::RunGame(){
         cout << status << endl;
             
         //calls the end condition function
-        EndCondition();
+ //cutting out endcondition for now       EndCondition();
             
         //pauses the game IF the game is still running
         if(!isdone){
@@ -196,10 +197,11 @@ string Game::HandleUserInput(){
     if(lower_command == "go"){
         //special check to see if you choose to go east towards the locked door in room 16
         if(ptrCurrentRoom->roomName == "AncientDoorRoom" && (lower_dORo ==  "east" || lower_dORo ==  "e")){
-            if(GetItemCount("Coin") >= 4){
+//DEBUG: changed to 1 for easier efficientcy, change back to 4
+            if(GetItemCount("Coin") >= 1){
                 cout << "The four slots shine brilliantly as you insert each Ancient Coin." << endl;
-                // deletes 4 coins as u used them up to open the door;
-                SubtractCount("Coin", 4); 
+//DEBUG: deletes 4 coins as u used them up to open the door
+                SubtractCount("Coin", 1); 
                 // you meet the requirements to open the door
                 status = "The Ancient Door opens up the path to the last room of the dungeon...";
                 //move into dungeon exit
@@ -236,7 +238,7 @@ string Game::HandleUserInput(){
             //changes current room to room in that direction, or tells the player they cant go in that direction
             if(ptrCurrentRoom->CanGo(EAST)){
                 status = "You went EAST.";
-                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborEast;                    
+                ptrCurrentRoom = ptrCurrentRoom->ptrNeighborEast;                   
             }
             else{
                 status = "You cant go EAST here."; 
@@ -380,8 +382,8 @@ void Game::SubtractCount(string item_name, int amount){
 }
 
 void Game::EndCondition(){
-    if(ptrCurrentRoom == ptrDungeonExit ){
-        cout << "In front of you lies 6 golden pedastals.\nThey all have dent etched on top, as if something is meant to be placed there..." << endl;
+    if(ptrCurrentRoom->roomName == "Dungeon Exit" ){
+        cout << "\nIn front of you lies 6 golden pedastals.\nThey all have dent etched on top, as if something is meant to be placed there..." << endl;
         //now do inventory check if player has 6 gold, if so, do the below with some extra couts for flair
         isdone = true;
         cout << "This is the exit of the Dungeon. You made it out!" << endl;

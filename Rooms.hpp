@@ -122,6 +122,7 @@ void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCount
     string itemToCheck = roomItem->GetItemName(); 
     bool itemIsInInventory = false;
     bool itemIsNothing = false;
+    // as long as it reads the room's itemname as nothing, it assumes the room has nothing
     Items* nowNothing = new Items("nothing");
     if (itemToCheck == "nothing")
     {
