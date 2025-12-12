@@ -22,38 +22,39 @@ class Game{
         void RunGame();
         
     private:
-    // pushes the rooms info AND item into the roomsVctr vector
-    int CreateRoom(string name, string description, Items* item);
-    // sets up the rooms starting with the first room and its neighboring rooms  
-    void SetupRooms();
-    //function to convert strings to lowercase
-    string ToLowerString(string str);
-    //Handles the user input, checks if the direction player wants to go is available, then changes the currentroom to that new room
-    string HandleUserInput(); 
-    // outputs the inventory as a vector of strings and ints, representing the item and its amount
-    void OutputUserInventory();
-    //skips 50 lines to make stuff more readable
-    void ClearConsole();
-    //gives a pause after each action the player does
-    void Pause();
-    //check inventory amount
-    int GetItemCount(string item_Name);
-    //adds amount of item into counter
-    void AddCount(string item_name, int amount);
-    //subtracts amount of item from counter
-    void SubtractCount(string item_name, int amount);
-    //currently, checks if the player has entered the last room, and stops the program
-    void EndCondition();
-    
-    Rooms* ptrDungeonExit;
-    Rooms* ptrCurrentRoom;
-    Rooms* statueRoom;
-    Items* ptrToAncientCoin;
-    //vector that stores the rooms info AND item the room has
-    vector<Rooms*> roomsVctr;
-    vector<string> inventory; // parallel vectors that will store itemnames
-    vector<int> itemCounts;   // and each item's count
-    bool isdone;
+        // pushes the rooms info AND item into the roomsVctr vector
+        int CreateRoom(string name, string description, Items* item);
+        // sets up the rooms starting with the first room and its neighboring rooms  
+        void SetupRooms();
+        //function to convert strings to lowercase
+        string ToLowerString(string str);
+        //Handles the user input, checks if the direction player wants to go is available, then changes the currentroom to that new room
+        string HandleUserInput(); 
+        // outputs the inventory as a vector of strings and ints, representing the item and its amount
+        void OutputUserInventory();
+        //skips 50 lines to make stuff more readable
+        void ClearConsole();
+        //gives a pause after each action the player does
+        void Pause();
+        //check inventory amount
+        int GetItemCount(string item_Name);
+        //adds amount of item into counter
+        void AddCount(string item_name, int amount);
+        //subtracts amount of item from counter
+        void SubtractCount(string item_name, int amount);
+        //currently, checks if the player has entered the last room, and stops the program
+        void EndCondition();
+        //counts all the items that ARENT coins in the inventory and outputs the counter as a integer
+        int InventoryCounter();
+        Rooms* ptrDungeonExit;
+        Rooms* ptrCurrentRoom;
+        Rooms* statueRoom;
+        Items* ptrToAncientCoin;
+        //vector that stores the rooms info AND item the room has
+        vector<Rooms*> roomsVctr;
+        vector<string> inventory; // parallel vectors that will store itemnames
+        vector<int> itemCounts;   // and each item's count
+        bool isdone;
 };  
 
 //the function definitions below
@@ -385,9 +386,24 @@ void Game::EndCondition(){
     if(ptrCurrentRoom->roomName == "Dungeon Exit" ){
         cout << "\nIn front of you lies 6 golden pedastals.\nThey all have dent etched on top, as if something is meant to be placed there..." << endl;
         //now do inventory check if player has 6 gold, if so, do the below with some extra couts for flair
-        isdone = true;
-        cout << "This is the exit of the Dungeon. You made it out!" << endl;
+        if(InventoryCounter() == 11){
+            isdone = true;
+            cout << "This is the exit of the Dungeon. You made it out!" << endl; 
+        }
+        else{
+            cout << "You dont have enough items. Go back..." << endl;
+        }
+
     }
+}
+int Game::InventoryCounter(){
+    int counter = 0;
+    for(unsigned long int i = 0;i < inventory.size(); i++){
+        if(inventory[i] != "Coin"){
+            counter += itemCounts[i];
+        }
+    }
+    return counter;
 }
 
 #endif
