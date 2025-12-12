@@ -6,8 +6,5 @@ int main()
     Game game;
     game.RunGame();
 
-    
     return 0;
-    
-    
 }

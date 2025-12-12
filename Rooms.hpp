@@ -20,6 +20,8 @@ struct Rooms{
 
     //sets up the default names of the room and default ptrs to its neighbors
     void Setup(string roomName, string roomDescription, Items* item);
+    //called to game.hpp to reset the ancient coin in statue room
+    void ResetCoin(Items* ancientCoinPtr);
     void OutputRoomInfo();
     //outputs the current rooms neighbors
     void OutputNeigbors();
@@ -30,6 +32,9 @@ struct Rooms{
     //variables for the rooms
     string roomName;
     string roomDescription;
+    // boolean to see if a coin is available, and a pointer to the original coin object
+    bool ancientCoinAvailable;
+    Items* ptrToAncientCoin;
     //pointers for the rooms next to a room [roomx is north of roomy, roomz is south of roomy, etc]
     Rooms* ptrNeighborNorth;
     Rooms* ptrNeighborSouth;
@@ -63,7 +68,25 @@ void Rooms::Setup(string roomName, string roomDescription, Items* item){
     ptrNeighborEast = nullptr;
     ptrNeighborWest = nullptr;
     roomItem = item;
+    //checks if the roomName is statueRoom, then a coin is available
+    ancientCoinAvailable = (roomName == "StatueRoom");
+    if(ancientCoinAvailable){
+        ptrToAncientCoin = item;
+    }
+    else{
+        ptrToAncientCoin = nullptr;
+    }
+
 }
+//when called in Game.hpp, sets boolean ancientCoinAvailable to true
+void Rooms::ResetCoin(Items* ancientCoinPtr){
+    if(roomName == "StatueRoom"){
+        roomItem = ancientCoinPtr;
+        ancientCoinAvailable = true;
+
+    }
+}
+//outputs each rooms info
 void Rooms::OutputRoomInfo(){
     cout << roomName << endl << roomDescription << endl;
     roomItem->DescribeItem();
@@ -93,7 +116,8 @@ bool Rooms::CanGo(Direction direction){
     }
     return false;
 }  
-
+//when you [get] an item, it puts it into the inventory vector and outputs it all, 
+//along with the parallel vector itemCounts to show how many of one item you have in the inventory 
 void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCounts){
     string itemToCheck = roomItem->GetItemName(); 
     bool itemIsInInventory = false;
