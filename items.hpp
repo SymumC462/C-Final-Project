@@ -29,7 +29,7 @@ void Items::GiveItemName(string itemName){
 
 
 void Items::DescribeItem() {
-    cout << "There is " << itemName << " in here." << endl;
+    cout << "\nThere is [" << itemName << "] in here.\n" << endl;
 }
 
 string Items::GetItemName(){

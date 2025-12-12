@@ -94,11 +94,11 @@ void Rooms::OutputRoomInfo(){
 }
 //outputs the current rooms neighbors
 void Rooms::OutputNeigbors(){
-    cout << "Head to..." << endl;
-    if(ptrNeighborNorth != nullptr){cout << "North " << endl;}
-    if(ptrNeighborSouth != nullptr){cout << "South " << endl;}
-    if(ptrNeighborEast != nullptr){cout << "East " << endl;}
-    if(ptrNeighborWest != nullptr){cout << "West " << endl;}
+    cout << "Head to..." << endl << endl;
+    if(ptrNeighborNorth != nullptr){cout << "[North] " << endl;}
+    if(ptrNeighborSouth != nullptr){cout << "[South] " << endl;}
+    if(ptrNeighborEast != nullptr){cout << "[East] " << endl;}
+    if(ptrNeighborWest != nullptr){cout << "[West] " << endl;}
 }
 //sees which directions you can go from your current room
 bool Rooms::CanGo(Direction direction){
@@ -144,7 +144,7 @@ void Rooms::AddItemtoInventory(vector<string>& inventory, vector<int>& itemCount
             inventory.push_back(roomItem->GetItemName());
             itemCounts.push_back(1);
         }
-        cout << "You put " << roomItem->GetItemName() << " into your inventory." << endl;
+        cout << "\nYou put " << roomItem->GetItemName() << " into your inventory." << endl;
         roomItem = nowNothing;
     }
 
