@@ -46,6 +46,10 @@ class Game{
         void EndCondition();
         //counts all the items that ARENT coins in the inventory and outputs the counter as a integer
         int InventoryCounter();
+        //outputs ascii art for AncientDoorRoom
+        void ASCIIDoor();
+        //output ascii art for SlotsRoom
+        void ASCIISlots();
         Rooms* ptrDungeonExit;
         Rooms* ptrCurrentRoom;
         Rooms* statueRoom;
@@ -73,6 +77,11 @@ void Game::RunGame(){
         
     string status = "";
     while(!isdone){
+
+        if (ptrCurrentRoom->roomName == "SlotsRoom")
+        {
+            ASCIISlots();
+        }
 
         ptrCurrentRoom->OutputRoomInfo();
         EndCondition();
@@ -218,6 +227,7 @@ string Game::HandleUserInput(){
                 else{
                     //you dont meet the requirements to open the door
                     status = "You push the door with all you might but it wont budge.\nIn your attempt to open the door, you notice 4 quarter sized holes on it face.";
+                    ASCIIDoor();
                 }
             }
              else{
@@ -417,6 +427,48 @@ int Game::InventoryCounter(){
         }
     }
     return counter;
+}
+
+void Game::ASCIISlots()
+{
+    cout << "                               || " << endl;
+    cout << "nununununununununununununu    ||||" << endl;
+    cout << "OO||||||||||||||||||||||OO   ||||||" << endl;
+    cout << "OO||||||||||||||||||||||OO    ||||" << endl;
+    cout << "OO|||||000||||||||||||||OO     ||" << endl;
+    cout << "OO||||00 00|||||||||||||OO     ||" << endl;
+    cout << "OO|||000 000||||||||||||OO-----//" << endl;
+    cout << "OO||||00 00|||||||||||||OO-----//" << endl;
+    cout << "OO|||||000||||||||||||||OO" << endl; 
+    cout << "OO||||||||||||||||||||||OO" << endl;
+    cout << "OO||||||----------||||||OO" << endl;
+    cout << "OO||||||          ||||||OO" << endl;
+    cout << "OO||||||----------||||||OO" << endl;
+    cout << "OO||||||||||||||||||||||OO" << endl;
+    cout << "nununununununununununununu" << endl;
+    cout << endl;
+}
+
+void Game::ASCIIDoor()
+{
+    cout << endl;
+    cout << "OOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
+    cout << "O:::::::::::::::::::::::O" << endl;
+    cout << "O::::0000:::::::0000::::O" << endl;
+    cout << "O:::0----0:::::0----0:::O" << endl;
+    cout << "O::::0000:::::::0000::::O" << endl;
+    cout << "O:::::::::::::::::::::::O" << endl;
+    cout << "O::::::::::::::::::::00:O" << endl;
+    cout << "O:::::::::::::::::::0000O" << endl;
+    cout << "O::::::::::::::::::::00:O" << endl;
+    cout << "O:::::::::::::::::::::::O" << endl;
+    cout << "O::::0000:::::::0000::::O" << endl;
+    cout << "O:::0----0:::::0----0:::O" << endl;
+    cout << "O::::0000:::::::0000::::O" << endl;
+    cout << "O:::::::::::::::::::::::O" << endl;
+    cout << "O:::::::::::::::::::::::O" << endl;
+    cout << "OOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
+    cout << endl;
 }
 
 #endif
