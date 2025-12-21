@@ -132,21 +132,21 @@ void Game::SetupRooms(){
     int startingRoom = CreateRoom("Dungeon Entrance", "\n[You have reached the entrance of this dungeon.]\n[You came for treasure and you expect nothing less!]", nothing); //room0 //index 0
     int OutsideEntrance = CreateRoom("Outside Entrance", "\n[This is forest outside of the Dungeon.]\n[You hear nothing but the wind sending regards.]", nothing); //room1 //index 1
     int dungeonExit = CreateRoom("Dungeon Exit", "\n[You are at the last room of the dungeon.]", nothing); //room17 //index 2
-    int room2 =CreateRoom("Room2", "\n[2nd room of this dungeon]", nothing);
-    int room3 =CreateRoom("Room3", "\n[Third room of this dungeon]", sapphire);
-    int room4 =CreateRoom("Room4", "\n[4th room of this dungeon]", ruby);
-    int room5 =CreateRoom("Room5", "\n5th room of this dungeon", gold);
-    int room6 =CreateRoom("Room6", "\n[6th room of this dungeon]", gold);
-    int room7 =CreateRoom("Room7", "\n[7th room of this dungeon]", ruby);
-    int room8 =CreateRoom("Room8", "\n[8th room of this dungeon]", nothing);
-    int room9 =CreateRoom("Room9", "\n[9th room of this dungeon]", gold);
-    int room10 =CreateRoom("Room10", "\n[10th room of this dungeon]", gold);
-    int room11 =CreateRoom("Room11", "\n[11th room of this dungeon]", sapphire);
-    int room12 =CreateRoom("Room12", "\n[12th room of this dungeon]", gold);
+    int room2 =CreateRoom("Dungeon Room2", "\n[Nothing but dim lights and an intersection ahead.]", nothing);
+    int room3 =CreateRoom("Dungeon Room3", "\n[You see a hole in the wall leaking some undescribable fluid.]\n[Below you see a cyan object covered in the fluid.]", sapphire);
+    int room4 =CreateRoom("Dungeon Room4", "\n[Theres a shining object in the center of the room.]", ruby);
+    int room5 =CreateRoom("Dungeon Room5", "\n[Nothing special about this room.]", gold);
+    int room6 =CreateRoom("Dungeon Room6", "\n[You see a skeleton on the wall with a bright yellow object in its throat.]", gold);
+    int room7 =CreateRoom("Dungeon Room7", "\n[This hall extends a couple more rooms down.]", ruby);
+    int room8 =CreateRoom("Dungeon Room8", "\n[Nothing special about this room. You are met with an intersection.]", nothing);
+    int room9 =CreateRoom("Dungeon Room9", "\n[You see a blanket covering some object on the floor.]\n[It gives off a putrid smell.]", gold);
+    int room10 =CreateRoom("Dungeon Room10", "\n[The people who made this dungeon could've done a better job at decorating.]", gold);
+    int room11 =CreateRoom("Dungeon Room11", "\n[Nothing special about this room.]", sapphire);
+    int room12 =CreateRoom("Dungeon Room12", "\n[A faint shimmering sound is coming from the room ahead.]", gold);
     int statueRoom =CreateRoom("StatueRoom", "\n[You enter a room in the middle of the hall.]\n[The center reveals a goddess statue, the figure bathed in golden light.]\n[You see an Ancient Coin[coin] glistening at its feet...]", ancientcoin);
     //this statueRoom is equal to the OTHER statueRoom you see above
     this->statueRoom = roomsVctr[statueRoom];
-    int room14 =CreateRoom("Room14", "\n[14th room of this dungeon]", ruby);
+    int room14 =CreateRoom("Dungeon Room14", "\n[You're met with another intersection, but you hear noises WEST.]", ruby);
     int slotsRoom =CreateRoom("SlotsRoom", "\n[This is the end of the hallway. You hear incessant beeping and loud noises.]\n[You have a look and see that its a [slots] machine.]\n[It calls for you to [play] it.]", sapphire);
     int ancientDoorRoom =CreateRoom("AncientDoorRoom", "\n[You take a left at the corridor and see a vast empty room with nothing but another door inside.]", nothing);
   
