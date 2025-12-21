@@ -353,7 +353,10 @@ void Game::OutputUserInventory(){
     }
     cout << "}" << endl;
 }
-
+/* Code was written with the help of gemini ai
+    when given the prompt "how would I make a pause system for a text game"
+    the message generated helped me write this code
+*/
 void Game::ClearConsole(){
     for(int i = 0; i < 20; i++){
         cout << "-----------------------" << endl;
@@ -378,6 +381,10 @@ int Game::GetItemCount(string item_Name){
     return 0; 
 }
 
+/*Code was written with the help of gemini ai
+    when given the prompt "how would I implement a simple gambling game involving coins"
+    the message generated helped me write this code
+*/
 void Game::AddCount(string item_name, int amount){
     string lower_name = ToLowerString(item_name);
     for(unsigned long int i = 0; i < inventory.size(); i++){
@@ -428,7 +435,9 @@ int Game::InventoryCounter(){
     }
     return counter;
 }
-
+/* Asci art was inspired by art from https://www.asciiart.eu
+    provided to us by our professor
+*/
 void Game::ASCIISlots()
 {
     cout << "                               || " << endl;
