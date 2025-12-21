@@ -6,8 +6,14 @@
 #include "items.hpp"
 using namespace std;
 
+//This code was adapted by  the people at GeeksForGeeks
+//https://www.geeksforgeeks.org/c/enumeration-enum-c/
+
 //gives names to the number values representing the 4 cardinal directions
 enum Direction {NORTH = 0, SOUTH = 1, EAST = 2, WEST = 3};
+
+//This code was adapted by  the people at GeeksForGeeks
+//https://www.geeksforgeeks.org/cpp/structures-in-cpp/
 
 //struct allows for different datatypes; basically an array that can sort ints, strings, bools, etc, in the same list
 struct Rooms{   
